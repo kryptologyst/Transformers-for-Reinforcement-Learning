@@ -1,0 +1,66 @@
+# Default configuration for Transformers for Reinforcement Learning
+
+# Environment settings
+env:
+  name: "CartPole-v1"
+  max_episode_length: 500
+  normalize_observations: true
+  normalize_rewards: false
+  clip_actions: true
+
+# Model settings
+model:
+  type: "decision_transformer"  # "decision_transformer" or "trajectory_transformer"
+  state_dim: 4
+  action_dim: 2
+  max_length: 20
+  hidden_size: 128
+  n_heads: 8
+  n_layers: 3
+  dropout: 0.1
+  activation: "relu"
+
+# Training settings
+training:
+  learning_rate: 1e-4
+  batch_size: 64
+  num_epochs: 100
+  weight_decay: 1e-5
+  gradient_clip_norm: 1.0
+  warmup_steps: 1000
+
+# Data collection settings
+data_collection:
+  num_trajectories: 1000
+  expert_ratio: 0.5
+  expert_algorithm: "PPO"
+  expert_timesteps: 100000
+  random_seed: 42
+
+# Evaluation settings
+evaluation:
+  num_episodes: 10
+  eval_seeds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  target_return: 100.0
+  render: false
+
+# Logging settings
+logging:
+  log_dir: "logs"
+  experiment_name: null  # Will be auto-generated if null
+  use_tensorboard: true
+  use_wandb: false
+  wandb_project: "transformers-for-rl"
+  save_checkpoints: true
+  checkpoint_frequency: 10
+
+# Device settings
+device:
+  device: null  # Will be auto-detected if null
+  seed: 42
+
+# Paths
+paths:
+  data_dir: "data"
+  checkpoint_dir: "checkpoints"
+  assets_dir: "assets"
